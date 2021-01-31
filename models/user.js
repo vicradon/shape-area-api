@@ -1,6 +1,5 @@
 "use strict";
 const { Model } = require("sequelize");
-const Calculation = require("./calculation");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -9,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {}
+    static associate(models) {
+      const tokenAssociation = models.User.hasMany(models.Token);
+    }
   }
 
   User.init(
@@ -29,8 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
     }
   );
-
-  User.hasMany(Calculation);
 
   return User;
 };
