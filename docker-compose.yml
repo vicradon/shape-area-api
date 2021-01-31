@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  app:
+    image: node:12-alpine
+    command: sh -c "npm start"
+    ports:
+      - 4000:4000
+    working_dir: /testing-do
+    volumes:
+      - ./:/testing-do
+    environment:
+      PORT: 4000
