@@ -9,15 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      const userAssociation = this.belongsTo(models.User);
     }
   }
 
   Calculation.init(
     {
       shape: { type: DataTypes.STRING, allowNull: false },
-      result: { type: DataTypes.FLOAT, allowNull: false },
-      user_id: {
+      area: { type: DataTypes.FLOAT, allowNull: false },
+      UserId: {
         type: DataTypes.INTEGER,
         references: {
           model: User,

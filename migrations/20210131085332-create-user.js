@@ -21,6 +21,7 @@ module.exports = {
         isEmail: true,
       },
       password: { type: Sequelize.STRING, allowNull: false },
+      salt: { type: Sequelize.STRING },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -12,8 +12,8 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      result: { type: Sequelize.FLOAT, allowNull: false },
-      user_id: {
+      area: { type: Sequelize.FLOAT, allowNull: false },
+      UserId: {
         type: Sequelize.INTEGER,
         references: {
           model: {

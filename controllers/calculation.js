@@ -1,11 +1,10 @@
 const Joi = require("joi");
+const jwt = require("jsonwebtoken");
+const { Calculation } = require("../models");
 const { UnsuppliedParameterError } = require("../helpers/errors");
 
 class CalculationController {
   calculate = async (req, res) => {
-    if (!req.headers.authorization) {
-      return res.status(403).send("No JWT supplied");
-    }
     const calculationSchema = Joi.object({
       shape: Joi.string().valid("circle", "square", "rectangle", "triangle"),
       dimensions: Joi.object().required(),
@@ -17,15 +16,23 @@ class CalculationController {
         dimensions: req.body.dimensions,
       });
       const area = this.areaComputation(shape, dimensions);
+
+      const calculation = Calculation.build({ shape, area });
+      const { user_id } = jwt.decode(req.headers.authorization.split(" ")[1]);
+      calculation.UserId = user_id;
+      await calculation.save();
       return res.status(200).json({
-        area: area.toFixed(2),
+        area,
+        status: "success",
+        message: "successfully calculated area",
       });
     } catch (error) {
-      console.log(error.message);
       if (error.name === "UnsuppliedParameterError") {
-        res.status(400).send(error.message);
+        return res
+          .status(400)
+          .json({ message: error.message, status: "error" });
       }
-      res.status(500).send(error.message);
+      return res.status(500).json({ message: error.message, status: "error" });
     }
   };
   areaComputation = (shape, dimensions) => {
@@ -74,7 +81,38 @@ class CalculationController {
         return area;
       },
     };
-    return area_formulae[shape](dimensions);
+    return area_formulae[shape](dimensions).toFixed(2);
+  };
+  calculations = async (req, res) => {
+    const { user_id } = jwt.decode(req.headers.authorization.split(" ")[1]);
+    const calculationHistorySchema = Joi.object({
+      page: Joi.number().integer().positive(),
+    });
+    try {
+      const { page = 1 } = await calculationHistorySchema.validateAsync({
+        page: req.query.page,
+      });
+
+      const { count, rows } = await Calculation.findAndCountAll({
+        where: { UserId: user_id },
+        offset: 10 * page - 10,
+        limit: 10,
+      });
+      return res.status(200).json({
+        calculations: rows,
+        page,
+        next_page: page * 10 < count ? page + 1 : null,
+        status: "success",
+        message: "successfully fetched calculations",
+      });
+    } catch (error) {
+      if (error.name === "ValidationError") {
+        return res
+          .status(400)
+          .json({ message: error.message, status: "error" });
+      }
+      return res.status(500).json({ message: error.message, status: "error" });
+    }
   };
 }
 

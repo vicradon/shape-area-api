@@ -5,6 +5,14 @@ class UnsuppliedParameterError extends Error {
   }
 }
 
+class UnauthorizedError extends Error {
+  constructor(message = "No JWT supplied or JWT is invalid") {
+    super(message);
+    this.name = "UnauthorizedError";
+  }
+}
+
 module.exports = {
   UnsuppliedParameterError,
+  UnauthorizedError,
 };
