@@ -1,7 +1,7 @@
 {
-  "name": "testing-do",
+  "name": "shape-area-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "An api for calculating the area of common plane shapes",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
