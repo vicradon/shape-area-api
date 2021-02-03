@@ -35,14 +35,42 @@ npm i
 cp .env.example .env
 ```
 
-4. Add the PORT and JWT_SECRET environment variables
+4. Create the database
+
+First, enter the postgres shell
+
+```
+psql -U postgres
+```
+
+then
+
+```
+postgres=# CREATE DATABASE shape_area_api;
+
+# output
+CREATE DATABASE
+postgres=#
+```
+
+5. Set the values of the necessary environment variables
 
 ```
 PORT=3000
-JWT_SECRET="some long super secret value"
+JWT_SECRET=""
+DB_USERNAME=""
+DB_HOST="127.0.0.1"
+DB_PASSWORD=""
+DB_DATABASE="shape_area_api"
 ```
 
-5. Start the development server
+6. Migrate the database
+
+```
+npx sequelize db:migrate
+```
+
+7. Start the development server
 
 ```
 npm run dev
