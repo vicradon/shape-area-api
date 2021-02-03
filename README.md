@@ -4,11 +4,11 @@ This is an API for calculating the area of various plane shapes.
 
 ## Live version
 
-Explore a live version of the API [here]()
+Explore a live version of the API [here](https://shape-area-compute.herokuapp.com/)
 
 ## Documentation
 
-A well documented, OpenAPI spec documentation can be found [here]()
+A well documented, OpenAPI spec documentation can be found [here](https://shape-area-compute.herokuapp.com/docs)
 
 ## Prerequisites
 
