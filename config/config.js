@@ -1,7 +1,9 @@
-const DATABASE_URL = process.env.DATABASE_URL;
 require("dotenv").config();
+
+const DATABASE_URL = process.env.DATABASE_URL;
 const UrlParse = require("url-parse");
-const { username, password, database, host } = UrlParse(DATABASE_URL);
+const { username, password, pathname, host } = UrlParse(DATABASE_URL);
+const database = pathname.split("/")[1];
 
 const config = {
   development: {
