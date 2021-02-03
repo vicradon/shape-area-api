@@ -1,4 +1,4 @@
 // Procfile 
 
-release: npx sequelize db:migrate
+release: npm run migrate
 web: ENV_SILENT=true npm start
