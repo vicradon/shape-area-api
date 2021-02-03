@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const crypto = require("crypto");
 const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 
@@ -50,6 +51,14 @@ class AuthController {
         password: req.body.password,
       });
       const user = await User.findOne({ where: { email } });
+      const passwordIsCorrect = User.passwordIsCorrect(user, password);
+
+      if (!passwordIsCorrect) {
+        return res.status(400).json({
+          status: "error",
+          message: "email or password is incorrect",
+        });
+      }
 
       const jwtValue = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET, {
         expiresIn: "1d",

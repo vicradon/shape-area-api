@@ -55,6 +55,11 @@ module.exports = (sequelize, DataTypes) => {
       .digest("hex");
   };
 
+  User.passwordIsCorrect = function (user, password) {
+    const encryptedPassword = User.encryptPassword(password, user.salt());
+    return encryptedPassword === user.password();
+  };
+
   const setSaltAndPassword = (user) => {
     if (user.changed("password")) {
       user.salt = User.generateSalt();

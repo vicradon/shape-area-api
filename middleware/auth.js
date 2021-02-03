@@ -1,4 +1,4 @@
-const { UnauthorizedError } = require("./errors");
+const { UnauthorizedError } = require("../helpers/errors");
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 const jwtVerifyAsync = promisify(jwt.verify);
