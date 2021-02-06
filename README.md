@@ -4,11 +4,11 @@ This is an API for calculating the area of various plane shapes.
 
 ## Live version
 
-Explore a live version of the API [here](https://shape-area-compute.herokuapp.com/)
+Explore a live version of the API [here](https://shape-area-api.azurewebsites.net/)
 
 ## Documentation
 
-A well documented, OpenAPI spec documentation can be found [here](https://shape-area-compute.herokuapp.com/docs)
+A well documented, OpenAPI spec documentation can be found [here](https://shape-area-api.azurewebsites.net/docs)
 
 ## Prerequisites
 
@@ -74,14 +74,6 @@ npx sequelize db:migrate
 
 ```
 npm run dev
-```
-
-## Running Tests
-
-Run the tests using
-
-```
-npm test
 ```
 
 ## LICENCE
