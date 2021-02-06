@@ -45,23 +45,63 @@
  *
  * /api/v1/calculations:
  *   get:
- *     summary: Returns JWT for registered user.
- *     description: Creates a new user and returns a JSON Web Token (JWT).
+ *     summary: Returns a paginated collection of previous calculations.
+ *     description: Returns a paginated collection of previous calculations.
  *     parameters:
- *       - name: email
- *         description: A user's email
- *         in: body
- *         required: true
- *         type: string
- *         example: johndoe@email.com
- *       - name: password
- *         description: A user's password
- *         in: body
- *         required: true
- *         type: string
- *         example: "correct horse battery staple"
+ *       - name: page
+ *         description: The current page of calculations
+ *         in: query
+ *         required: false
+ *         type: integer
+ *         example: 2
  *     responses:
  *       200:
- *         description: A user object and JWT
- *         example:
+ *         description: The set of calculations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 page:
+ *                  type: integer
+ *                  example: 1
+ *                 next_page:
+ *                  type: null
+ *                  example: null
+ *                 status:
+ *                  type: string
+ *                  example: success
+ *                 message:
+ *                  type: string
+ *                  example: successfully fetched calculations
+ *                 calculations:
+ *                  type: array
+ *                  items:
+ *                      type: object
+ *                      properties:
+ *                          id:
+ *                              type: interger
+ *                          shape:
+ *                              type: string
+ *                          area:
+ *                              type: integer
+ *                          UserId:
+ *                              type: interger
+ *                          createdAt:
+ *                              type: Date
+ *                          updatedAt:
+ *                              type: Date
+ *                      example:
+ *                          - id: 1
+ *                            shape: square
+ *                            area: 36
+ *                            UserId: 1
+ *                            createdAt: 2021-02-06T01:00:09.977Z
+ *                            updatedAt: 2021-02-06T01:00:09.977Z
+ *                          - id: 1
+ *                            shape: square
+ *                            area: 4
+ *                            UserId: 1
+ *                            createdAt: 2021-02-06T01:00:15.331Z
+ *                            updatedAt: 2021-02-06T01:00:15.331Z
  */
