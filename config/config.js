@@ -1,10 +1,5 @@
 require("dotenv").config();
 
-const DATABASE_URL = process.env.DATABASE_URL;
-const UrlParse = require("url-parse");
-const { username, password, pathname, host } = UrlParse(DATABASE_URL);
-const database = pathname.split("/")[1];
-
 const config = {
   development: {
     username: process.env.DB_USERNAME,
@@ -21,10 +16,10 @@ const config = {
     dialect: "postgres",
   },
   production: {
-    username,
-    password,
-    database,
-    host,
+    username: process.env.DB_PROD_USERNAME,
+    password: process.env.DB_PROD_PASSWORD,
+    database: process.env.DB_PROD_DATABASE,
+    host: process.env.DB_PROD_HOST,
     dialect: "postgres",
   },
 };
