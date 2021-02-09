@@ -1,5 +1,5 @@
 FROM node:12-alpine
-WORKDIR /testing-do
+WORKDIR /shape-area-api
 COPY . .
 RUN npm install --production
 CMD ["node", "index.js"]
