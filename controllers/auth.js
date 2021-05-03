@@ -1,5 +1,4 @@
 const Joi = require("joi");
-const crypto = require("crypto");
 const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 
